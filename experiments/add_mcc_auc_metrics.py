@@ -20,6 +20,9 @@ import math
 import numpy as np
 import pandas as pd
 
+# numpy>=2.0 renamed np.trapz -> np.trapezoid; support both.
+_trapezoid = getattr(np, "trapezoid", None) or np.trapz
+
 
 # Project root that contains run_1..run_5 (and mean_run/).
 # Overridable with --project-root; defaults to the current working directory.
@@ -86,7 +89,7 @@ def summarise_curve(curve_df: pd.DataFrame) -> pd.DataFrame:
         x = g["rank_percentage"].to_numpy(dtype=float)
         y = g["mcc"].to_numpy(dtype=float)
         # Normalised AUC keeps the value on the natural MCC scale [-1, 1].
-        auc = float(np.trapz(y, x) / max(float(x[-1] - x[0]), 1e-12))
+        auc = float(_trapezoid(y, x) / max(float(x[-1] - x[0]), 1e-12))
         row = {
             "fold": int(fold),
             "mcc_auc": auc,

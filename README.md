@@ -1,7 +1,7 @@
 # Deep-MOTIFs
 
 ---
-Deep-MOTIFs -- Multi-Omics inTegratIon For autiSm
+Deep-MOTIFs (Multi-Omics inTegratIon For autiSm)
 
 ## Requirements
 
@@ -50,7 +50,7 @@ The pipeline uses data in the `ext_data/` directory under the project root.
 ### Basic run
 
 ```bash
-python -m deep_motifs --project-root C:\path\to\your\data
+python -m deep_motifs --project-root C:\path\to\your\root
 ```
 
 Output is written to `deep_motifs_v4_outputs/`.
@@ -60,7 +60,7 @@ Output is written to `deep_motifs_v4_outputs/`.
 
 ```bash
 python -m deep_motifs \
-  --project-root C:\path\to\your\data \
+  --project-root C:\path\to\your\root \
   --output-dir my_run \
   --prior-model xgb \          # empirical prior: 'xgb' (recommended), 'none', or 'lstm'*
   --fusion-mode rrf \          # score fusion: 'rrf' (recommended), 'fixed', or 'pu'
@@ -93,6 +93,18 @@ deep_motifs_v4_outputs/
 The key output for downstream analysis is `full_scores_summary.csv`. It contains the averaged genome-wide ASD risk score (`forecASD`) for every gene not in the labeled set, ranked from highest to lowest risk.
 
 A `cache/` directory is created and it stores prebuilt STRING graph files to speed up reruns.
+
+---
+
+## Post-processing metrics
+
+Table 1 also reports rank-threshold MCC metrics (`mcc_auc`, `mcc_max`, `mcc_mean`, `mcc_at_*`), which are not produced by the run itself. Append them to a single run's output directory:
+
+```bash
+python -c "from pathlib import Path; from experiments.add_mcc_auc_metrics import process_output_dir; process_output_dir(Path('deep_motifs_v4_outputs'))"
+```
+
+This adds the metrics to `cv_metrics_summary.csv` and `cv_fold_metrics.csv`.
 
 ---
 
