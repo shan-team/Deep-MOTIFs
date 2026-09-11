@@ -41,7 +41,10 @@ The pipeline uses data in the `ext_data/` directory under the project root.
 | `composite_table.csv` | Composite genetic/functional feature table (see paper) |
 | `tada_new.csv` | TADA gene scores |
 | `jack_fu_gene_info(in).csv` | Additional gene annotations |
-| BrainSpan expression files | [BrainSpan Atlas](https://www.brainspan.org/static/download.html) |
+| `SFARI_new.csv` | [SFARI Gene](https://gene.sfari.org/) — curated ASD risk genes with evidence categories (positive labels) |
+| `sfari_gene_ids_v10.txt` | SFARI / Ensembl gene-ID mapping (ENSP ↔ ENSG ↔ symbol ↔ Entrez), used for gene-ID normalization |
+| `deepnd_asd_negative_protein_ids_usable_no_pos_overlap.txt` | DeepND-derived reference-negative genes (non-ASD, no positive overlap) |
+| BrainSpan expression files | [BrainSpan Atlas](https://www.brainspan.org/static/download.html) 
 
 ---
 
@@ -50,7 +53,7 @@ The pipeline uses data in the `ext_data/` directory under the project root.
 ### Basic run
 
 ```bash
-python -m deep_motifs --project-root C:\path\to\your\root
+python -m deep_motifs --project-root /path/to/root
 ```
 
 Output is written to `deep_motifs_v4_outputs/`.
@@ -60,15 +63,14 @@ Output is written to `deep_motifs_v4_outputs/`.
 
 ```bash
 python -m deep_motifs \
-  --project-root C:\path\to\your\root \
-  --output-dir my_run \
-  --prior-model xgb \          # empirical prior: 'xgb' (recommended), 'none', or 'lstm'*
-  --fusion-mode rrf \          # score fusion: 'rrf' (recommended), 'fixed', or 'pu'
-  --pu-class-prior 0.06 \      # PU class prior pi (paper default)
+  --project-root /path/to/root \
+  --prior-model xgb \
+  --fusion-mode rrf \
+  --pu-class-prior 0.06 \
   --prior-uncertainty-delta 0.05 \
   --prior-weight-floor 0.10 \
-  --n-splits 5 \               # CV folds
-  --device auto                # 'auto', 'cpu', or 'cuda'
+  --n-splits 5 \
+  --device auto
 ```
 
 ---
