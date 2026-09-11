@@ -8,12 +8,12 @@
 #SBATCH --time=08:00:00
 #SBATCH --output=run_sfari_gpu.%j.log
 
-cd /home/njchu/Deep-MOTIFs
+cd /path/to/root
 module load AI/cuda13.0
 
 .venv/bin/python -m deep_motifs \
-  --project-root /home/njchu/Deep-MOTIFs \
-  --labels-dir /home/njchu/Deep-MOTIFs/ext_data/labels \
+  --project-root /path/to/root \
+  --labels-dir /path/to/root/ext_data/labels \
   --output-dir deep_motifs_sfari_gpu_outputs \
   --prior-model xgb \
   --fusion-mode rrf \
