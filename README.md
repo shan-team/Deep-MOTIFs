@@ -59,7 +59,7 @@ python -m deep_motifs --project-root /path/to/root
 Output is written to `deep_motifs_v4_outputs/`.
 
 
-### Options used in the paper
+### Run with configurations from paper
 
 ```bash
 python -m deep_motifs \
@@ -73,7 +73,7 @@ python -m deep_motifs \
   --device auto
 ```
 
-### GPU Run
+### GPU run using Slurm job
 ```bash
 submit deep_motifs_job.sh
 ```
