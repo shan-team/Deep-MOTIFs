@@ -115,6 +115,18 @@ This adds the metrics to `cv_metrics_summary.csv` and `cv_fold_metrics.csv`.
 
 ---
 
+## Paper Reproducibility
+
+The full benchmark pipeline (all 5 runs × 10 models) used in the paper is in [`run_pipeline.py`](run_pipeline.py). 
+
+
+The script runs these models on the same labeled gene set:
+`forecasd → xgb → rf → svm → deepgbm → sai → tabnet → ftt → cnn → gcn → deep_motifs`
+
+Results land in `run_1/` … `run_5/` and are averaged into `mean_run/`.
+
+---
+
 ## Package Structure
 
 ```
